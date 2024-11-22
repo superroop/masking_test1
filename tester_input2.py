@@ -12,6 +12,18 @@ if uploaded_file is not None:
     st.write("元のテキスト:")
     st.write(original_text)
 
+    # 強調された説明文を追加
+    st.markdown("""
+    <div style="border: 2px solid #007BFF; padding: 10px; margin: 10px 0; background-color: #f9f9f9; border-radius: 5px;">
+        <h4 style="color: #007BFF;">マスキング処理について</h4>
+        <ul>
+            <li>以下のテキスト部分を確認してください。</li>
+            <li>必要な箇所を選択し、ボタンをクリックすることで「■」に変換できます。</li>
+            <li>変換後の内容をダウンロードすることも可能です。</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+
     # JavaScriptを使ってテキストを選択し、変換するコンポーネントを埋め込む
     html_code = f"""
     <div id="text-container" style="white-space: pre-wrap;">
