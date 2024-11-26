@@ -56,9 +56,9 @@ if uploaded_file is not None:
         {original_text}
     </div>
     <button onclick="convertToSymbol('■')">選択した部分が、個人に関する非開示情報に該当（「■」に変換）</button><br>
-    <button onclick="convertToSymbol('▲')">選択した部分が、法人等に関する非開示情報に該当（「□」に変換）</button><br>
-    <button onclick="convertToSymbol('▽')">選択した部分が、国の安全等に関する非開示情報に該当（「▲」に変換）</button><br>
-    <button onclick="convertToSymbol('□')">選択した部分が、公共の安全等に関する非開示情報に該当（「▽」に変換）</button><br>
+    <button onclick="convertToSymbol('□')">選択した部分が、法人等に関する非開示情報に該当（「□」に変換）</button><br>
+    <button onclick="convertToSymbol('▲')">選択した部分が、国の安全等に関する非開示情報に該当（「▲」に変換）</button><br>
+    <button onclick="convertToSymbol('▽')">選択した部分が、公共の安全等に関する非開示情報に該当（「▽」に変換）</button><br>
     <button onclick="convertToSymbol('●')">選択した部分を、審議・検討に関する非開示情報に該当（「●」に変換）</button><br>
     <button onclick="convertToSymbol('○')">選択した部分を、事務又は事業に関する非開示情報に該当（「○」に変換）</button><br>
     <button onclick="downloadText()">変換後のテキストをダウンロード</button>
