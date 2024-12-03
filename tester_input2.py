@@ -27,6 +27,31 @@ if uploaded_file is not None:
     # JavaScriptを使ってテキストを選択し、変換するコンポーネントを埋め込む
     html_code = f"""
     <style>
+        /* ボタンデザインのスタイル */
+    .btn-blue {{
+        background-color: #007BFF;
+        color: #fff;
+    }}
+    .btn-green {{
+        background-color: #28a745;
+        color: #fff;
+    }}
+    .btn-red {{
+        background-color: #dc3545;
+        color: #fff;
+    }}
+    .btn-yellow {{
+        background-color: #ffc107;
+        color: #000;
+    }}
+    .btn-purple {{
+        background-color: #6f42c1;
+        color: #fff;
+    }}
+    .btn-orange {{
+        background-color: #fd7e14;
+        color: #fff;
+    }}
     /* ボタンデザインのスタイル */
     button {{
         display: inline-block;
@@ -34,8 +59,6 @@ if uploaded_file is not None:
         margin: 10px 0;
         font-size: 16px;
         font-weight: bold;
-        color: #fff;
-        background-color: #007BFF;
         border: none;
         border-radius: 5px;
         cursor: pointer;
@@ -55,12 +78,12 @@ if uploaded_file is not None:
     <div id="text-container" style="white-space: pre-wrap;">
         {original_text}
     </div>
-    <button onclick="convertToSymbol('■')">選択した部分が、個人に関する非開示情報に該当（「■」に変換）</button><br>
-    <button onclick="convertToSymbol('□')">選択した部分が、法人等に関する非開示情報に該当（「□」に変換）</button><br>
-    <button onclick="convertToSymbol('▲')">選択した部分が、国の安全等に関する非開示情報に該当（「▲」に変換）</button><br>
-    <button onclick="convertToSymbol('▽')">選択した部分が、公共の安全等に関する非開示情報に該当（「▽」に変換）</button><br>
-    <button onclick="convertToSymbol('●')">選択した部分を、審議・検討に関する非開示情報に該当（「●」に変換）</button><br>
-    <button onclick="convertToSymbol('○')">選択した部分を、事務又は事業に関する非開示情報に該当（「○」に変換）</button><br>
+    <button class="btn-blue" onclick="convertToSymbol('■')">選択した部分が、個人に関する非開示情報（5条1号）に該当（「■」に変換）</button><br>
+    <button class="btn-green" onclick="convertToSymbol('□')">選択した部分が、法人等に関する非開示情報（5条2号）に該当（「□」に変換）</button><br>
+    <button class="btn-red" onclick="convertToSymbol('▲')">選択した部分が、国の安全等に関する非開示情報（5条3号）に該当（「▲」に変換）</button><br>
+    <button class="btn-yellow" onclick="convertToSymbol('▽')">選択した部分が、公共の安全等に関する非開示情報（5条4号）に該当（「▽」に変換）</button><br>
+    <button class="btn-purple" onclick="convertToSymbol('●')">選択した部分が、審議・検討に関する非開示情報（5条5号）に該当（「●」に変換）</button><br>
+    <button class="btn-orange" onclick="convertToSymbol('○')">選択した部分が、事務又は事業に関する非開示情報（5条6号）に該当（「○」に変換）</button><br>
     <button onclick="downloadText()">変換後のテキストをダウンロード</button>
 
     <script>
