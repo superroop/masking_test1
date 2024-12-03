@@ -28,51 +28,25 @@ if uploaded_file is not None:
     html_code = f"""
     <style>
         /* ボタンデザインのスタイル */
-    .btn-blue {{
-        background-color: #007BFF;
-        color: #fff;
-    }}
-    .btn-green {{
-        background-color: #28a745;
-        color: #fff;
-    }}
-    .btn-red {{
-        background-color: #dc3545;
-        color: #fff;
-    }}
-    .btn-yellow {{
-        background-color: #ffc107;
-        color: #000;
-    }}
-    .btn-purple {{
-        background-color: #6f42c1;
-        color: #fff;
-    }}
-    .btn-orange {{
-        background-color: #fd7e14;
-        color: #fff;
-    }}
-    /* ボタンデザインのスタイル */
-    button {{
-        display: inline-block;
-        padding: 10px 20px;
-        margin: 10px 0;
-        font-size: 16px;
-        font-weight: bold;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }}
+        button {{
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }}
 
-    button:hover {{
-        background-color: #0056b3;
-    }}
-
-    button:active {{
-        transform: scale(0.98);
-    }}
+        .btn-blue {{ background-color: #007BFF; color: #fff; }}
+        .btn-green {{ background-color: #28a745; color: #fff; }}
+        .btn-red {{ background-color: #dc3545; color: #fff; }}
+        .btn-yellow {{ background-color: #ffc107; color: #000; }}
+        .btn-purple {{ background-color: #6f42c1; color: #fff; }}
+        .btn-orange {{ background-color: #fd7e14; color: #fff; }}
     </style>
 
     <div id="text-container" style="white-space: pre-wrap;">
@@ -91,31 +65,41 @@ if uploaded_file is not None:
 
     function convertToSymbol(symbol) {{
         var container = document.getElementById("text-container");
-        var selectedText = window.getSelection().toString();
+        var selection = window.getSelection();
 
-        if (selectedText) {{
-            var newText = container.innerText.trim();  // innerTextを使い、trim()で前後の空白を除去
+        if (selection.rangeCount > 0) {{
+            var range = selection.getRangeAt(0); // 選択範囲を取得
+            var selectedText = range.toString();
 
-            // 変換部分だけを指定された記号に置き換え
-            var convertedSelectedText = selectedText.replace(/./g, symbol);
-            newText = newText.replace(selectedText, convertedSelectedText);
+            if (selectedText) {{
+                var newText = container.innerText; // 元のテキストを取得
+                var startOffset = newText.indexOf(selectedText, range.startOffset);
+                var endOffset = startOffset + selectedText.length;
 
-            container.innerText = newText;  // innerTextで変換後のテキストを更新
+                // テキストを配列として扱い、選択部分を置き換え
+                var textArray = Array.from(newText);
+                for (var i = startOffset; i < endOffset; i++) {{
+                    textArray[i] = symbol;
+                }}
 
-            // 変換後のテキストを保持
-            convertedText = newText;  // innerTextをそのまま保持して、改行やインデントを除去
+                var updatedText = textArray.join("");
+                container.innerText = updatedText; // テキストを更新
+                convertedText = updatedText;      // グローバル変数に保持
+            }}
         }}
     }}
 
     function downloadText() {{
-        // ダウンロード時のファイル名に元のファイル名を使い、_maskedを追加
+        // ファイル名を設定
         var fileName = "{uploaded_file.name.replace('.txt', '')}_masked.txt";
-
-        // 変換後のテキストをダウンロード
-        var blob = new Blob([convertedText], {{ type: 'text/plain' }});
+        
+        // convertedText のトリム（前後の空白や改行を削除）
+        var cleanText = convertedText.trim();
+        
+        var blob = new Blob([cleanText], {{ type: 'text/plain' }});
         var link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = fileName;  // ファイル名を変更してダウンロード
+        link.download = fileName;
         link.click();
     }}
     </script>
